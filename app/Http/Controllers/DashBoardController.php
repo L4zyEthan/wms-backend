@@ -104,4 +104,37 @@ public function getAllOutOfStock(){
 
         return $this->Success($result, "Monthly movements by year");
     }
+
+    public function getNumCategories()
+    {
+        if(!request()->user()->can('index categories')){
+            return $this->Forbidden();
+        }
+
+        $numCategories = DB::table('categories')->count();
+
+        return $this->Success($numCategories, "Total number of categories: $numCategories");
+    }
+    
+    public function getNumLowStockProducts()
+    {
+        if(!request()->user()->can('index products')){
+            return $this->Forbidden();
+        }
+
+        $numLowStock = DB::table('products')->where('stock', '<=', 20)->count();
+
+        return $this->Success($numLowStock, "Total number of low stock products: $numLowStock");
+    }
+
+    public function getNumOutOfStockProducts()
+    {
+        if(!request()->user()->can('index products')){
+            return $this->Forbidden();
+        }
+
+        $numOutOfStock = DB::table('products')->where('stock', '=', 0)->count();
+
+        return $this->Success($numOutOfStock, "Total number of out of stock products: $numOutOfStock");
+    }
 }

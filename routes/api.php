@@ -95,5 +95,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard/totalStock', [DashBoardController::class, 'getAllStocks']);
     Route::get('/dashboard/lowStock', [DashBoardController::class, 'getAllLowStock']);
     Route::get('/dashboard/outOfStock', [DashBoardController::class, 'getAllOutOfStock']);
+    Route::get('/dashboard/numCategories', [DashBoardController::class, 'getNumCategories']);
+    Route::get('/dashboard/numLowStock', [DashBoardController::class, 'getNumLowStock']);
+    Route::get('/dashboard/numOutOfStock', [DashBoardController::class, 'getNumOutOfStock']);
 
 });
