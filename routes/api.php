@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/productOrders', [ProductOrderController::class, 'index']);
     Route::post('/productOrders', [ProductOrderController::class, 'store']);
+    Route::post('/productOrders/checkout{id}', [ProductOrderController::class, 'checkOut']);
     Route::get('/productOrders/{id}', [ProductOrderController::class, 'show']);
     Route::patch('/productOrders/{id}', [ProductOrderController::class, 'update']);
     Route::delete('/productOrders/{id}', [ProductOrderController::class, 'destroy']);

@@ -22,10 +22,8 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => User::factory(),
-            'store_id' => function () {
-                return Stores_Outlets::factory()->create()->id;
-            },
+            'user_id' => User::inRandomOrder()->value('id'),
+            'store_id' => Stores_Outlets::inRandomOrder()->value('id'),
             'transaction_type_id' => $this->faker->randomElement([1, 2]),
             'total_transaction_price' => $this->faker->randomFloat(2, 100, 10000),
             'created_at' => $this->faker->dateTimeBetween('-6 months', 'now'),

@@ -1274,6 +1274,9 @@ class DatabaseSeeder extends Seeder
         $viewerUser = User::where('username', 'viewer')->first();
         $viewerUser->assignRole('viewer');
 
+        User::factory()->count(30)->create();
+        Stores_Outlets::factory()->count(10)->create();
+
         Transaction::factory()->count(300)->create();
         VarianceReport::factory()->count(6)->create();
     }

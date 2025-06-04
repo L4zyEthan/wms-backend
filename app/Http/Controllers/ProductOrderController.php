@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\ProductOrder;
 
@@ -10,7 +11,7 @@ class ProductOrderController extends Controller
 {
     public function index()
     {
-        if (!request()->user()->can('index product orders')) {
+        if (!request()->user()->can('index transactions')) {
             return $this->Forbidden();
         }
 
@@ -69,7 +70,7 @@ class ProductOrderController extends Controller
 
     public function show($id)
     {
-        if (!request()->user()->can('view product order')) {
+        if (!request()->user()->can('view transaction')) {
             return $this->Forbidden();
         }
 
@@ -84,7 +85,7 @@ class ProductOrderController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (!request()->user()->can('update product order')) {
+        if (!request()->user()->can('update transaction')) {
             return $this->Forbidden();
         }
 
@@ -131,7 +132,7 @@ class ProductOrderController extends Controller
 
     public function destroy($id)
     {
-        if (!request()->user()->can('delete product order')) {
+        if (!request()->user()->can('delete transaction')) {
             return $this->Forbidden();
         }
 
@@ -143,6 +144,37 @@ class ProductOrderController extends Controller
         $productOrder->products()->detach();
         $productOrder->delete();
 
-        return $this->Success(null, 'Product order deleted successfully.');
+        return $this->Success($productOrder, 'Product order deleted successfully.');
+    }
+
+    public function checkOut(Request $request,$id)
+    {
+        $productOrder = ProductOrder::with('products')->find($id);
+        if (empty($productOrder)) {
+            return $this->NotFound();
+        }
+
+        // Create a new transaction
+        $transaction = new Transaction();
+        $transaction->user_id = $request->user()->id;
+        $transaction->store_id = $productOrder->store_id;
+        $transaction->transaction_type_id = $productOrder->transaction_type_id;
+        $transaction->total_transaction_price = $productOrder->total_transaction_price;
+        $transaction->status_id = 1; // or set as needed
+        $transaction->save();
+
+        // Attach products to the transaction
+        $items = [];
+        foreach ($productOrder->products as $product) {
+            $items[$product->id] = [
+                'quantity' => $product->pivot->quantity,
+                'price' => $product->pivot->price
+            ];
+        }
+        $transaction->products()->sync($items);
+
+        $productOrder->delete();
+
+        return $this->Success($transaction->load('products'), 'Product order transferred to transaction successfully.');
     }
 }

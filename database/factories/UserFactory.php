@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -34,6 +35,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function ($user) {
             $user->assignRole('user'); // Assigns the 'user' role. Change as needed.
+            Profile::factory()->create(['user_id' => $user->id]);
         });
     }
 }
