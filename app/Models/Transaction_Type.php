@@ -14,4 +14,8 @@ class Transaction_Type extends Model
     public function transactions(){
         return $this->hasMany(Transaction::class);
     }
+
+    public function varianceReports(){
+        return $this->hasMany(VarianceReport::class, 'transaction_type_id');
+    }
 }

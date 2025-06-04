@@ -12,7 +12,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        "name", "description", "price", "barcode", "category_id", "stock", "image",
+        "name", "description", "price", "barcode", "category_id", "stock", "image","sku","flawed"
     ];
 
     public function category(){
@@ -21,6 +21,10 @@ class Product extends Model
 
     public function transactions(){
         return $this->belongsToMany(Transaction::class)->withPivot("quantity", "price");
+    }
+
+    public function productOrders(){
+        return $this->belongsToMany(ProductOrder::class)->withPivot("quantity", "price");
     }
 }
 

@@ -50,9 +50,10 @@ class ProductController extends Controller
             "description" => "required|max:255|string",
             "price" => "required|numeric|max:999999999|min:0",
             "image" => "nullable|mimes:jpg,jpeg,png,jfif,webp|image|max:8192",
-            "stock" => "sometimes|integer|min:0",
+            "stock" => "nullable|integer|min:0",
             "barcode" => "required|string|max:255|unique:products",
             "category_id" => "required|exists:categories,id",
+            "sku" => "required|string|max:255|unique:products,sku",
         ]);
 
         if($validator->fails()){
@@ -70,8 +71,9 @@ class ProductController extends Controller
         $products->price = $inputs["price"];
         $products->image = 'images/products/'.$imageName;
         $products->barcode = $inputs["barcode"];
-        $products->stock = $inputs["stock"];
+        $products->stock = $inputs["stock"] ?? 0;
         $products->category_id = $inputs["category_id"];
+        $products->sku = $inputs["sku"];
         $products->save();
 
         return $this->Created($products);
@@ -136,6 +138,7 @@ public function update(Request $request, string $id)
         "price" => "sometimes|numeric|max:999999999|min:0",
         "barcode" => "sometimes|string|max:255|unique:products,barcode,$id",
         "category_id" => "sometimes|exists:categories,id",
+        "sku" => "sometimes|string|max:255|unique:products,sku,$id",
     ];
 
     // Add image validation rules if a new image is being uploaded

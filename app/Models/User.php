@@ -65,4 +65,8 @@ class User extends Authenticatable
     {
     return $this->roles->flatMap->permissions->unique('id');
     }
+
+    public function varianceReports(){
+        return $this->hasMany(VarianceReport::class);
+    }
 }

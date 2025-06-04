@@ -22,4 +22,9 @@ class ProductOrder extends Model
     {
         return $this->belongsTo(Transaction_Type::class, 'transaction_type_id');
     }
+
+    public function products(){
+        return $this->belongsToMany(Product::class, 'product_productorders')->withPivot("quantity", "price");
+    }
+
 }

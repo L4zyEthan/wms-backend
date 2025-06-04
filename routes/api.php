@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashBoardController;
+use App\Http\Controllers\ProductOrderController;
+use App\Http\Controllers\VarianceReportController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -61,9 +63,6 @@ Route::middleware('auth:sanctum')->group(function () {
 // Product Routes
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/products', [ProductController::class, 'index']);
-    Route::get('/productStocks', [ProductController::class, 'getAllStocks']);
-    Route::get('/productLowStocks', [ProductController::class, 'getAllLowStock']);
-    Route::get('/productOutofStocks', [ProductController::class, 'getAllOutOfStock']); 
     Route::post('/products', [ProductController::class, 'store']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
     Route::patch('/products/{id}', [ProductController::class, 'update']);
@@ -73,11 +72,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Product Order Routes
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/productOrders', [ProductController::class, 'getAllProductOrders']);
-    Route::post('/productOrders', [ProductController::class, 'storeProductOrder']);
-    Route::get('/productOrders/{id}', [ProductController::class, 'showProductOrder']);
-    Route::patch('/productOrders/{id}', [ProductController::class, 'updateProductOrder']);
-    Route::delete('/productOrders/{id}', [ProductController::class, 'destroyProductOrder']);
+    Route::get('/productOrders', [ProductOrderController::class, 'index']);
+    Route::post('/productOrders', [ProductOrderController::class, 'store']);
+    Route::get('/productOrders/{id}', [ProductOrderController::class, 'show']);
+    Route::patch('/productOrders/{id}', [ProductOrderController::class, 'update']);
+    Route::delete('/productOrders/{id}', [ProductOrderController::class, 'destroy']);
+});
+
+//Variance Report Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/varianceReport', [VarianceReportController::class, 'index']);
+    Route::get('/varianceReport/{id}', [VarianceReportController::class, 'show']);
+    Route::post('/varianceReport', [VarianceReportController::class, 'store']);
 });
 
 
@@ -85,4 +91,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard/topProducts', [DashBoardController::class, 'getTopFour']);
     Route::get('/dashboard/monthlyReport', [DashBoardController::class, 'getMonthlyReport']);
+    Route::get('/dashboard/totalStock', [DashBoardController::class, 'getAllStocks']);
+    Route::get('/dashboard/lowStock', [DashBoardController::class, 'getAllLowStock']);
+    Route::get('/dashboard/outOfStock', [DashBoardController::class, 'getAllOutOfStock']);
+
 });

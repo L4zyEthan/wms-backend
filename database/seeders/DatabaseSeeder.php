@@ -12,6 +12,7 @@ use App\Models\Transaction_Type;
 use App\Models\Stores_Outlets;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\VarianceReport;
 use Exception;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -1273,6 +1274,7 @@ class DatabaseSeeder extends Seeder
         $viewerUser = User::where('username', 'viewer')->first();
         $viewerUser->assignRole('viewer');
 
-        Transaction::factory()->count(1000)->create();
+        Transaction::factory()->count(300)->create();
+        VarianceReport::factory()->count(6)->create();
     }
 }
