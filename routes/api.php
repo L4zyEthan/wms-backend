@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashBoardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -10,55 +11,78 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 
+//Authentication routes
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::post('/checkAuth', [AuthController::class, 'checkAuth'])->middleware('auth:sanctum');
 
+// User Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('users/profile', [UserController::class, 'me']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::get('users/{id}', [UserController::class, 'show']);
+    Route::patch('users/{id}', [UserController::class, 'update']);
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
+});
 
-Route::get('users', [UserController::class, 'index'])->middleware('auth:sanctum');
-Route::get('profile', [UserController::class, 'me'])->middleware('auth:sanctum');
-Route::post('users', [UserController::class, 'store'])->middleware('auth:sanctum');
-Route::get('users/{id}', [UserController::class, 'show'])->middleware('auth:sanctum');
-Route::patch('users/{id}', [UserController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware('auth:sanctum');
+// Stores and Outlets Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/stores', [StoresOutletsController::class, 'index']);
+    Route::post('/stores', [StoresOutletsController::class, 'store']);
+    Route::get('/stores/{id}', [StoresOutletsController::class, 'show']);
+    Route::patch('/stores/{id}', [StoresOutletsController::class, 'update']);
+    Route::delete('/stores/{id}', [StoresOutletsController::class, 'destroy']);
+});
 
-Route::get('/stores', [StoresOutletsController::class, 'index'])->middleware('auth:sanctum');
-Route::post('/stores', [StoresOutletsController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/stores/{id}', [StoresOutletsController::class, 'show'])->middleware('auth:sanctum');
-Route::patch('/stores/{id}', [StoresOutletsController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('/stores/{id}', [StoresOutletsController::class, 'destroy'])->middleware('auth:sanctum');
+// Category Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/categories', [CategoryController::class, 'index']);
+    Route::get('/categoryCount', [CategoryController::class, 'countCategory']);
+    Route::post('/categories', [CategoryController::class, 'store']);
+    Route::get('/categories/{id}', [CategoryController::class, 'show']);
+    Route::patch('/categories/{id}', [CategoryController::class, 'update']);
+    Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
+});
 
-Route::get('/categories', [CategoryController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/categoryCount', [CategoryController::class, 'countCategory'])->middleware('auth:sanctum');
-Route::post('/categories', [CategoryController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/categories/{id}', [CategoryController::class, 'show'])->middleware('auth:sanctum');
-Route::patch('/categories/{id}', [CategoryController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->middleware('auth:sanctum');
+// Transaction Type Routes
+Route::get('/transaction_types', [TransactionTypeController::class, 'index']);
+Route::get('/transaction_types/{id}', [TransactionTypeController::class, 'show']);
 
-Route::get('/transaction_types', [TransactionTypeController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/transactionsTop4', [TransactionController::class, 'getTopFour'])->middleware('auth:sanctum');
-Route::post('/transaction_types', [TransactionTypeController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/transaction_types/{id}', [TransactionTypeController::class, 'show'])->middleware('auth:sanctum');
-Route::patch('/transaction_types/{id}', [TransactionTypeController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('/transaction_types/{id}', [TransactionTypeController::class, 'destroy'])->middleware('auth:sanctum');
-
-Route::get('/transactions', [TransactionController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/transactionsMonthly', [TransactionController::class, 'getMonthlyReport'])->middleware('auth:sanctum');
-Route::post('/transactions', [TransactionController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/transactions/{id}', [TransactionController::class, 'show'])->middleware('auth:sanctum');
-Route::get('/transactions/type/{type}', [TransactionController::class, 'indexByType'])->middleware('auth:sanctum');
-Route::delete('/transactions/{id}', [TransactionController::class, 'destroy'])->middleware('auth:sanctum');
-
-Route::get('/products', [ProductController::class, 'index'])->middleware('auth:sanctum');
-Route::get('/productStocks', [ProductController::class, 'getAllStocks'])->middleware('auth:sanctum');
-Route::get('/productLowStocks', [ProductController::class, 'getAllLowStock'])->middleware('auth:sanctum');
-Route::get('/productOutofStocks', [ProductController::class, 'getAllOutOfStock'])->middleware('auth:sanctum'); 
-Route::post('/products', [ProductController::class, 'store'])->middleware('auth:sanctum');
-Route::get('/products/{id}', [ProductController::class, 'show'])->middleware('auth:sanctum');
-Route::put('/products/{id}', [ProductController::class, 'update'])->middleware('auth:sanctum');
-Route::delete('/products/{id}', [ProductController::class, 'destroy'])->middleware('auth:sanctum');
-Route::get('search/products/{search}', [ProductController::class, 'searchProduct'])->middleware('auth:sanctum');
+// Transaction Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/transactions', [TransactionController::class, 'index']);
+    Route::post('/transactions', [TransactionController::class, 'store']);
+    Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']);
+});
 
 
-Route::get('/products/category/{category_id}', [ProductController::class, 'showByCategory'])->middleware('auth:sanctum'); // New route
-Route::get('/products/price', [ProductController::class, 'showByPrice'])->middleware('auth:sanctum');
+// Product Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/productStocks', [ProductController::class, 'getAllStocks']);
+    Route::get('/productLowStocks', [ProductController::class, 'getAllLowStock']);
+    Route::get('/productOutofStocks', [ProductController::class, 'getAllOutOfStock']); 
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::patch('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+    Route::get('search/products/{search}', [ProductController::class, 'searchProduct']);
+});
+
+// Product Order Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/productOrders', [ProductController::class, 'getAllProductOrders']);
+    Route::post('/productOrders', [ProductController::class, 'storeProductOrder']);
+    Route::get('/productOrders/{id}', [ProductController::class, 'showProductOrder']);
+    Route::patch('/productOrders/{id}', [ProductController::class, 'updateProductOrder']);
+    Route::delete('/productOrders/{id}', [ProductController::class, 'destroyProductOrder']);
+});
+
+
+// Dashboard Routes
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/dashboard/topProducts', [DashBoardController::class, 'getTopFour']);
+    Route::get('/dashboard/monthlyReport', [DashBoardController::class, 'getMonthlyReport']);
+});

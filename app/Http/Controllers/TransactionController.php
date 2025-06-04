@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
@@ -30,19 +29,6 @@ class TransactionController extends Controller
 
     return $this->Success($transactions);
     }
-    
-    /**
-    * Display a listing of the resource by type.
-    **/
-    public function indexByType()
-    {
-        if(!request()->user()->can('index transactions')){
-            return $this->Forbidden();
-        }
-
-        $transactions = Transaction::with('transaction_type')->with('user')->with('store')->with('product')->orderBy('transaction_type', 'asc')->get();
-           return $this->Success($transactions);
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -60,7 +46,9 @@ class TransactionController extends Controller
             "products.*" => "array",
             "products.*.product_id" => "required|exists:products,id",
             "products.*.quantity" => "required|numeric|min:0.01|max:1000000",
+            "products.*.flawed_quantity" => "nullable|numeric|min:0|max:1000000",
             "total_transaction_price" => "nullable|numeric|min:0|max:1000000",
+            "note" => "nullable|string|max:255",
         ]);
 
         if($validator->fails()){
@@ -74,16 +62,23 @@ class TransactionController extends Controller
 
         foreach ($request->products as $product) {
             $p = $products->where("id", $product["product_id"])->first(); 
-            $items[$product["product_id"]] = ["price" => $p->price, "quantity" => $product["quantity"]];
+            $items[$product["product_id"]] = [
+                "price" => $p->price, 
+                "quantity" => $product["quantity"],
+                "flawed_quantity" => $product["flawed_quantity"]
+            ];
 
             if ($p->stock < $product["quantity"]) {
-            return $this->BadRequest("Not enough stock for product: " . $p->name);
+                return $this->BadRequest("Not enough stock for product: " . $p->name);
             }
 
             if ($request->transaction_type_id == 1) {
-            $p->stock = $p->stock + $product["quantity"];
+                $p->stock = $p->stock + $product["quantity"];
+                $p->flawed = ($p->flawed ?? 0) + $product["flawed_quantity"];
             } else {
-            $p->stock = $p->stock - $product["quantity"];
+                $p->stock = $p->stock - $product["quantity"];
+                $p->flawed = ($p->flawed ?? 0) - $product["flawed_quantity"];
+                
             }
             $total += $p->price * $product["quantity"];
 
@@ -124,6 +119,21 @@ class TransactionController extends Controller
         return $this->Success($transactions);
     }
 
+    public function update(Request $request, $id)
+    {
+        if(!request()->user()->can('create transaction')){
+            return $this->Forbidden();
+        }
+
+        $transaction = Transaction::find($id);
+        if (!$transaction) {
+            return $this->NotFound();
+        }
+        $transaction->status_id = 2;
+        $transaction->save();
+        return $this->Success($transaction, 'Transaction status updated. This action cannot be undone.');
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -156,48 +166,5 @@ class TransactionController extends Controller
     $transactions->delete();
 
     return $this->Success($transactions, "Transaction and related updates reversed successfully.");
-    }
-
-
-    public function getTopFour(){
-        if(!request()->user()->can('index transactions')){
-            return $this->Forbidden();
-        }
-
-        $topProducts = DB::table('transactions')
-    ->join('product_transaction', 'transactions.id', '=', 'product_transaction.transaction_id')
-    ->join('products', 'product_transaction.product_id', '=', 'products.id') // Added join to products table
-    ->where('transactions.transaction_type_id', 2)
-    ->select([
-        'products.name as product_name', // Changed to select product name
-        DB::raw('SUM(product_transaction.quantity) as total_quantity')
-    ])
-    ->groupBy('products.name') // Group by name instead of ID
-    ->orderByDesc('total_quantity')
-    ->limit(4)
-    ->get();
-
-    return $this->Success($topProducts, "Top 4 products sold");
-
-    }
-
-    public function getMonthlyReport(Request $request)
-    {
-        if(!request()->user()->can('index transactions')){
-            return $this->Forbidden();
-        }
-
-        $monthlyMovements = DB::table('transactions')
-            ->select([
-                DB::raw("DATE_FORMAT(transactions.created_at, '%Y-%m') as month"),
-                DB::raw("COUNT(*) as total_transactions"),
-                DB::raw("SUM(CASE WHEN transaction_type_id = 1 THEN 1 ELSE 0 END) as inbound_transactions"),
-                DB::raw("SUM(CASE WHEN transaction_type_id = 2 THEN 1 ELSE 0 END) as outbound_transactions")
-            ])
-            ->groupBy('month')
-            ->orderBy('month')
-            ->get();
-
-        return $this->Success($monthlyMovements, "Monthly movements");
     }
 }

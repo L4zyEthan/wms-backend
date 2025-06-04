@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Stores_Outlets;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
     
     protected $fillable = [
         'user_id','store_id','transaction_type_id','total_transaction_price'

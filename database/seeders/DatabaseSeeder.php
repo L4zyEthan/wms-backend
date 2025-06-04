@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Transaction;
+use App\Models\TransactionStatus;
 use App\Models\User;
 use App\Models\Profile;
 use App\Models\Category;
@@ -85,6 +86,14 @@ class DatabaseSeeder extends Seeder
         Category::create([
             "name" => "Health & Wellness",
         ]);
+
+        TransactionStatus::create([
+            "name"=> "Pending",
+        ]);
+
+        TransactionStatus::create([
+            "name"=> "Completed",
+        ]);
         
         Product::create([
             "name"=> "KKCRNCH 100",
@@ -94,6 +103,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 100,
             "image"=> "images/products/koko.png",
+            "sku" => "SKU-1010101010",
         ]);
 
         Product::create([
@@ -104,6 +114,7 @@ class DatabaseSeeder extends Seeder
             "stock"=> 100,
             "image"=> "images/products/oreo.png",
             "category_id"=> 1,
+            "sku" => "SKU-1010101011",
         ]);
 
         Product::create([
@@ -114,6 +125,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 100,
             "image"=> "images/products/shirt.png",
+            "sku" => "SKU-2020202020",
         ]);
 
         Product::create([
@@ -124,6 +136,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 100,
             "image"=> "images/products/jeans.png",
+            "sku" => "SKU-2020202021",
         ]);
 
         Product::create([
@@ -134,6 +147,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 100,
             "image"=> "images/products/phone.png",
+            "sku" => "SKU-3030303030",
         ]);
 
         Product::create([
@@ -144,6 +158,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 100,
             "image"=> "images/products/laptop.png",
+            "sku" => "SKU-3030303031",
         ]);
 
         Product::create([
@@ -154,6 +169,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 100,
             "image"=> "images/products/sofa.png",
+            "sku" => "SKU-4040404040",
         ]);
 
         Product::create([
@@ -164,6 +180,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 100,
             "image"=> "images/products/table.png",
+            "sku" => "SKU-4040404041",
         ]);
 
         Product::create([
@@ -174,6 +191,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 100,
             "image"=> "images/products/action.png",
+            "sku" => "SKU-5050505050",
         ]);
 
         Product::create([
@@ -184,6 +202,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 100,
             "image"=> "images/products/puzzle.png",
+            "sku" => "SKU-5050505051",
         ]);
         Product::create([
             "name"=> "Alden Photocard",
@@ -193,6 +212,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 1,
             "image"=> "images/products/admin.jpg",
+            "sku" => "SKU-9999999999",
         ]);
 
         Product::create([
@@ -203,6 +223,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 50,
             "image"=> "images/products/headphones_wireless.jpg",
+            "sku" => "SKU-1000000002",
         ]);
 
         Product::create([
@@ -213,6 +234,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 100,
             "image"=> "images/products/green_tea_organic.jpg",
+            "sku" => "SKU-1000000003",
         ]);
 
         Product::create([
@@ -223,6 +245,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 75,
             "image"=> "images/products/water_bottle_stainless.jpg",
+            "sku" => "SKU-1000000004",
         ]);
 
         Product::create([
@@ -233,6 +256,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 60,
             "image"=> "images/products/power_bank_portable.jpg",
+            "sku" => "SKU-1000000005",
         ]);
 
         Product::create([
@@ -243,6 +267,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 40,
             "image"=> "images/products/yoga_mat_non_slip.jpg",
+            "sku" => "SKU-1000000006",
         ]);
 
         Product::create([
@@ -253,6 +278,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 30,
             "image"=> "images/products/desk_lamp_smart.jpg",
+            "sku" => "SKU-1000000007",
         ]);
 
         Product::create([
@@ -263,6 +289,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 15,
             "image"=> "images/products/espresso_machine_compact.jpg",
+            "sku" => "SKU-1000000008",
         ]);
 
         Product::create([
@@ -273,6 +300,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 35,
             "image"=> "images/products/gardening_tool_set.jpg",
+            "sku" => "SKU-1000000009",
         ]);
 
         Product::create([
@@ -283,6 +311,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 80,
             "image"=> "images/products/kitchen_scale_digital.jpg",
+            "sku" => "SKU-1000000010",
         ]);
 
         Product::create([
@@ -293,6 +322,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 90,
             "image"=> "images/products/resistance_bands_set.jpg",
+            "sku" => "SKU-1000000011",
         ]);
 
         Product::create([
@@ -303,6 +333,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 25,
             "image"=> "images/products/aromatherapy_diffuser.jpg",
+            "sku" => "SKU-1000000012",
         ]);
 
         Product::create([
@@ -313,6 +344,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 18,
             "image"=> "images/products/binoculars_compact.jpg",
+            "sku" => "SKU-1000000013",
         ]);
 
         Product::create([
@@ -323,6 +355,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 120,
             "image"=> "images/products/shopping_bags_reusable.jpg",
+            "sku" => "SKU-1000000014",
         ]);
 
         Product::create([
@@ -333,6 +366,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 45,
             "image"=> "images/products/bluetooth_speaker_portable.jpg",
+            "sku" => "SKU-1000000015",
         ]);
 
         Product::create([
@@ -343,6 +377,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 65,
             "image"=> "images/products/travel_pillow_memory_foam.jpg",
+            "sku" => "SKU-1000000016",
         ]);
 
         Product::create([
@@ -353,6 +388,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 55,
             "image"=> "images/products/wireless_charging_pad.jpg",
+            "sku" => "SKU-1000000017",
         ]);
 
         Product::create([
@@ -363,6 +399,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 70,
             "image"=> "images/products/coffee_mugs_ceramic_set.jpg",
+            "sku" => "SKU-1000000018",
         ]);
 
         Product::create([
@@ -373,6 +410,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 90,
             "image"=> "images/products/plant_pot_ceramic_medium.jpg",
+            "sku" => "SKU-1000000019",
         ]);
 
         Product::create([
@@ -383,6 +421,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 40,
             "image"=> "images/products/flashlight_rechargeable_led.jpg",
+            "sku" => "SKU-1000000020",
         ]);
 
         Product::create([
@@ -393,6 +432,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 20,
             "image"=> "images/products/art_tablet_digital_beginner.jpg",
+            "sku" => "SKU-1000000021",
         ]);
 
         Product::create([
@@ -403,6 +443,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 30,
             "image"=> "images/products/picnic_blanket_foldable.jpg",
+            "sku" => "SKU-1000000022",
         ]);
 
         Product::create([
@@ -413,6 +454,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 25,
             "image"=> "images/products/fitness_tracker_smart.jpg",
+            "sku" => "SKU-1000000023",
         ]);
 
         Product::create([
@@ -423,6 +465,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 100,
             "image"=> "images/products/hdmi_cable_high_speed.jpg",
+            "sku" => "SKU-1000000024",
         ]);
 
         Product::create([
@@ -433,6 +476,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 30,
             "image"=> "images/products/espresso_maker_portable.jpg",
+            "sku" => "SKU-1000000025",
         ]);
 
         Product::create([
@@ -443,6 +487,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 150,
             "image"=> "images/products/earplugs_noise_cancelling.jpg",
+            "sku" => "SKU-1000000026",
         ]);
 
         Product::create([
@@ -453,6 +498,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 80,
             "image"=> "images/products/coffee_beans_gourmet.jpg",
+            "sku" => "SKU-1000000027",
         ]);
 
         Product::create([
@@ -463,6 +509,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 50,
             "image"=> "images/products/laundry_basket_collapsible.jpg",
+            "sku" => "SKU-1000000028",
         ]);
 
         Product::create([
@@ -473,6 +520,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 110,
             "image"=> "images/products/phone_mount_magnetic_car.jpg",
+            "sku" => "SKU-1000000029",
         ]);
 
         Product::create([
@@ -483,6 +531,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 10,
             "image"=> "images/products/dumbbell_set_adjustable.jpg",
+            "sku" => "SKU-1000000030",
         ]);
 
         Product::create([
@@ -493,6 +542,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 40,
             "image"=> "images/products/electric_kettle_stainless.jpg",
+            "sku" => "SKU-1000000031",
         ]);
 
         Product::create([
@@ -503,6 +553,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 20,
             "image"=> "images/products/ssd_external_1tb.jpg",
+            "sku" => "SKU-1000000032",
         ]);
 
         Product::create([
@@ -513,6 +564,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 60,
             "image"=> "images/products/scented_candles_soy_set.jpg",
+            "sku" => "SKU-1000000033",
         ]);
 
         Product::create([
@@ -523,6 +575,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 25,
             "image"=> "images/products/air_purifier_portable.jpg",
+            "sku" => "SKU-1000000034",
         ]);
 
         Product::create([
@@ -533,6 +586,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 100,
             "image"=> "images/products/jump_rope_speed.jpg",
+            "sku" => "SKU-1000000035",
         ]);
 
         Product::create([
@@ -543,6 +597,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 45,
             "image"=> "images/products/food_containers_reusable.jpg",
+            "sku" => "SKU-1000000036",
         ]);
 
         Product::create([
@@ -553,6 +608,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 15,
             "image"=> "images/products/security_camera_smart_home.jpg",
+            "sku" => "SKU-1000000037",
         ]);
 
         Product::create([
@@ -563,6 +619,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 70,
             "image"=> "images/products/travel_adapter_universal.jpg",
+            "sku" => "SKU-1000000038",
         ]);
 
         Product::create([
@@ -573,6 +630,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 130,
             "image"=> "images/products/cleaning_cloths_microfiber_set.jpg",
+            "sku" => "SKU-1000000039",
         ]);
 
         Product::create([
@@ -583,6 +641,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 50,
             "image"=> "images/products/computer_mouse_ergonomic.jpg",
+            "sku" => "SKU-1000000040",
         ]);
 
         Product::create([
@@ -593,6 +652,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 90,
             "image"=> "images/products/protein_shaker_bottle.jpg",
+            "sku" => "SKU-1000000041",
         ]);
 
         Product::create([
@@ -603,6 +663,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 10,
             "image"=> "images/products/photo_printer_portable.jpg",
+            "sku" => "SKU-1000000043",
         ]);
 
         Product::create([
@@ -613,6 +674,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 18,
             "image"=> "images/products/weighted_blanket_15lbs.jpg",
+            "sku" => "SKU-1000000044",
         ]);
 
         Product::create([
@@ -623,6 +685,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 70,
             "image"=> "images/products/food_strainer_silicon_collapsible.jpg",
+            "sku" => "SKU-1000000045",
         ]);
 
         Product::create([
@@ -633,6 +696,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 8,
             "image"=> "images/products/mini_projector_hd.jpg",
+            "sku" => "SKU-1000000046",
         ]);
 
         Product::create([
@@ -643,6 +707,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 35,
             "image"=> "images/products/foam_roller_deep_tissue.jpg",
+            "sku" => "SKU-1000000047",
         ]);
 
         Product::create([
@@ -653,6 +718,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 25,
             "image"=> "images/products/power_strip_smart_wifi.jpg",
+            "sku" => "SKU-1000000048",
         ]);
 
         Product::create([
@@ -663,6 +729,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 60,
             "image"=> "images/products/humidifier_portable_usb.jpg",
+            "sku" => "SKU-1000000049",
         ]);
 
         Product::create([
@@ -673,6 +740,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 20,
             "image"=> "images/products/electric_toothbrush_rechargeable.jpg",
+            "sku" => "SKU-1000000050",
         ]);
 
         Product::create([
@@ -683,6 +751,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 80,
             "image"=> "images/products/baking_mat_silicone_set.jpg",
+            "sku" => "SKU-1000000051",
         ]);
 
         Product::create([
@@ -693,6 +762,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 30,
             "image"=> "images/products/voice_recorder_digital.jpg",
+            "sku" => "SKU-1000000052",
         ]);
 
         Product::create([
@@ -703,6 +773,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 50,
             "image"=> "images/products/wrist_weights_adjustable.jpg",
+            "sku" => "SKU-1000000053",
         ]);
 
         Product::create([
@@ -713,6 +784,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 40,
             "image"=> "images/products/coffee_grinder_manual.jpg",
+            "sku" => "SKU-1000000054",
         ]);
 
         Product::create([
@@ -723,6 +795,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 30,
             "image"=> "images/products/usb_c_hub_multiport.jpg",
+            "sku" => "SKU-1000000055",
         ]);
 
         Product::create([
@@ -733,6 +806,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 25,
             "image"=> "images/products/travel_backpack_water_resistant.jpg",
+            "sku" => "SKU-1000000056",
         ]);
 
         Product::create([
@@ -743,6 +817,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 15,
             "image"=> "images/products/knife_set_ceramic.jpg",
+            "sku" => "SKU-1000000057",
         ]);
 
         Product::create([
@@ -753,6 +828,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 35,
             "image"=> "images/products/travel_steamer_portable.jpg",
+            "sku" => "SKU-1000000058",
         ]);
 
         Product::create([
@@ -763,6 +839,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 12,
             "image"=> "images/products/mini_drone_camera.jpg",
+            "sku" => "SKU-1000000059",
         ]);
 
         Product::create([
@@ -773,6 +850,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 50,
             "image"=> "images/products/desk_organizer_bamboo.jpg",
+            "sku" => "SKU-1000000060",
         ]);
 
         Product::create([
@@ -783,6 +861,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 40,
             "image"=> "images/products/smart_light_bulbs_color.jpg",
+            "sku" => "SKU-1000000061",
         ]);
 
         Product::create([
@@ -793,6 +872,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 10,
             "image"=> "images/products/subscription_box_tech.jpg",
+            "sku" => "SKU-1000000062",
         ]);
 
         Product::create([
@@ -803,6 +883,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 30,
             "image"=> "images/products/protein_powder_plant_vanilla.jpg",
+            "sku" => "SKU-1000000063",
         ]);
 
         Product::create([
@@ -813,6 +894,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 20,
             "image"=> "images/products/pet_grooming_kit.jpg",
+            "sku" => "SKU-1000000064",
         ]);
 
         Product::create([
@@ -823,6 +905,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 100,
             "image"=> "images/products/first_aid_kit_mini.jpg",
+            "sku" => "SKU-1000000065",
         ]);
 
         Product::create([
@@ -833,6 +916,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 40,
             "image"=> "images/products/kitchen_utensil_silicone_set.jpg",
+            "sku" => "SKU-1000000066",
         ]);
 
         Product::create([
@@ -843,6 +927,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 5,
             "image"=> "images/products/robot_vacuum_smart.jpg",
+            "sku" => "SKU-1000000067",
         ]);
 
         Product::create([
@@ -853,6 +938,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 50,
             "image"=> "images/products/garden_lights_solar_4pack.jpg",
+            "sku" => "SKU-1000000068",
         ]);
 
         Product::create([
@@ -863,6 +949,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 30,
             "image"=> "images/products/water_filter_pitcher.jpg",
+            "sku" => "SKU-1000000069",
         ]);
 
         Product::create([
@@ -873,6 +960,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 60,
             "image"=> "images/products/book_stand_bamboo_adjustable.jpg",
+            "sku" => "SKU-1000000070",
         ]);
 
         Product::create([
@@ -883,6 +971,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 40,
             "image"=> "images/products/exercise_ball_anti_burst.jpg",
+            "sku" => "SKU-1000000071",
         ]);
 
         Product::create([
@@ -893,6 +982,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 70,
             "image"=> "images/products/neck_fan_portable.jpg",
+            "sku" => "SKU-1000000072",
         ]);
 
         Product::create([
@@ -903,6 +993,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 25,
             "image"=> "images/products/hand_warmer_power_bank.jpg",
+            "sku" => "SKU-1000000073",
         ]);
 
         Product::create([
@@ -913,6 +1004,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 15,
             "image"=> "images/products/meat_thermometer_smart.jpg",
+            "sku" => "SKU-1000000074",
         ]);
 
         Product::create([
@@ -923,6 +1015,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 90,
             "image"=> "images/products/beeswax_wraps_reusable.jpg",
+            "sku" => "SKU-1000000075",
         ]);
 
         Product::create([
@@ -933,6 +1026,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 80,
             "image"=> "images/products/tablet_stand_universal.jpg",
+            "sku" => "SKU-1000000076",
         ]);
 
         Product::create([
@@ -943,6 +1037,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 120,
             "image"=> "images/products/silicone_straws_reusable.jpg",
+            "sku" => "SKU-1000000077",
         ]);
 
         Product::create([
@@ -953,6 +1048,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 5,
             "image"=> "images/products/dslr_camera_kit_beginner.jpg",
+            "sku" => "SKU-1000000078",
         ]);
 
         Product::create([
@@ -963,6 +1059,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 30,
             "image"=> "images/products/noise_machine_white_noise.jpg",
+            "sku" => "SKU-1000000079",
         ]);
 
         Product::create([
@@ -973,6 +1070,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 10,
             "image"=> "images/products/clothes_dryer_portable.jpg",
+            "sku" => "SKU-1000000080",
         ]);
 
         Product::create([
@@ -983,6 +1081,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 40,
             "image"=> "images/products/herb_garden_starter_kit_indoor.jpg",
+            "sku" => "SKU-1000000081",
         ]);
 
         Product::create([
@@ -993,6 +1092,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 20,
             "image"=> "images/products/keyboard_ergonomic_split.jpg",
+            "sku" => "SKU-1000000082",
         ]);
 
         Product::create([
@@ -1003,6 +1103,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 35,
             "image"=> "images/products/laptop_stand_adjustable.jpg",
+            "sku" => "SKU-1000000083",
         ]);
 
         Product::create([
@@ -1013,6 +1114,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 15,
             "image"=> "images/products/digital_photo_frame_wifi.jpg",
+            "sku" => "SKU-1000000084",
         ]);
 
         Product::create([
@@ -1023,6 +1125,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 1,
             "stock"=> 50,
             "image"=> "images/products/smart_notebook_erasable.jpg",
+            "sku" => "SKU-1000000085",
         ]);
 
         Product::create([
@@ -1033,6 +1136,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 2,
             "stock"=> 25,
             "image"=> "images/products/air_compressor_portable.jpg",
+            "sku" => "SKU-1000000086",
         ]);
 
         Product::create([
@@ -1043,6 +1147,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 3,
             "stock"=> 60,
             "image"=> "images/products/led_strip_lights_dimmable.jpg",
+            "sku" => "SKU-1000000087",
         ]);
 
         Product::create([
@@ -1053,6 +1158,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 4,
             "stock"=> 40,
             "image"=> "images/products/lunch_box_stainless_leakproof.jpg",
+            "sku" => "SKU-1000000088",
         ]);
 
         Product::create([
@@ -1063,6 +1169,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 5,
             "stock"=> 10,
             "image"=> "images/products/doorbell_camera_wireless_smart.jpg",
+            "sku" => "SKU-1000000089",
         ]);
 
         Product::create([
@@ -1073,6 +1180,7 @@ class DatabaseSeeder extends Seeder
             "category_id"=> 6,
             "stock"=> 18,
             "image"=> "images/products/chefs_knife_professional.jpg",
+            "sku" => "SKU-1000000090",
         ]);
 
         Stores_Outlets::create([
@@ -1123,6 +1231,10 @@ class DatabaseSeeder extends Seeder
             'view transaction',
             'update transaction',
             'delete transaction',
+            'create variance report',
+            'index variance reports',
+            'view variance report',
+            'update variance report',
         ];
 
         foreach ($permissions as $permission) {
@@ -1139,7 +1251,7 @@ class DatabaseSeeder extends Seeder
 
         $user = Role::create(['name' => 'user']);
         $user->givePermissionTo(Permission::all()->filter(function ($permission) {
-            return !in_array($permission->name, ['create user', 'index users', 'delete user', 'create store', 'delete store', 'update store', 'create category', 'delete category', 'update category', 'create product', 'delete product', 'update product']);
+            return !in_array($permission->name, ['create user', 'index users', 'delete user', 'create store', 'delete store', 'update store', 'create category', 'delete category', 'update category', 'create product', 'delete product', 'update product', 'create variance report', 'delete variance report', 'update variance report']);
         }));
         
         $viewer = Role::create(['name' => 'viewer']);
@@ -1161,5 +1273,6 @@ class DatabaseSeeder extends Seeder
         $viewerUser = User::where('username', 'viewer')->first();
         $viewerUser->assignRole('viewer');
 
+        Transaction::factory()->count(1000)->create();
     }
 }

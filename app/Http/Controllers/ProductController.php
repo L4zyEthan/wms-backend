@@ -19,7 +19,7 @@ class ProductController extends Controller
             return $this->Forbidden();
         }
 
-        $products = Product::with('category')->get();
+        $products = Product::with('category')->paginate(30);
          // ✅ Convert product images to full URLs
           foreach ($products as $product) {
             if ($product->image) {
@@ -30,7 +30,6 @@ class ProductController extends Controller
         if ($products->isEmpty()) {
             return $this->NotFound();
         }
-        return $this->Success($products);
     }
 
     /**
@@ -193,35 +192,6 @@ public function update(Request $request, string $id)
 
         $products->delete();
         return $this->Success($products, "Deleted");
-    }
-
-    public function getAllStocks(){
-        if(!request()->user()->can('index products')){
-            return $this->Forbidden();
-        }
-
-        $totalStock = DB::table('products')->sum('stock');
-
-        return $this->Success($totalStock, "Total stock: $totalStock");
-    }
-
-public function getAllLowStock(){
-        if(!request()->user()->can('index products')){
-            return $this->Forbidden();
-        }
-
-        $lowStock = DB::table('products')->where('stock', '<=', 20)->get();
-
-        return $this->Success($lowStock, "Low stock products");
-    }
-public function getAllOutOfStock(){
-        if(!request()->user()->can('index products')){
-            return $this->Forbidden();
-        }
-
-        $outOfStock = DB::table('products')->where('stock', '=', 0)->get();
-
-        return $this->Success($outOfStock, "Out of stock products");
     }
 }
 
