@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaction_statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default(1);
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

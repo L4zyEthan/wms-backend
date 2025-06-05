@@ -40,6 +40,7 @@ class TransactionFactory extends Factory
                 $transaction->products()->attach($product->id, [
                     'quantity' => rand(1, 10),
                     'price' => $product->price,
+                    'flawed' => rand(0,1),
                 ]);
             }
         });

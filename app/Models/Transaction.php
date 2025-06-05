@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Stores_Outlets;
 use App\Models\Transaction_Type;
 use App\Models\Product;
+use App\Models\TransactionStatus;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
@@ -15,7 +16,7 @@ class Transaction extends Model
     use SoftDeletes, HasFactory;
     
     protected $fillable = [
-        'user_id','store_id','transaction_type_id','total_transaction_price'
+        'user_id','store_id','transaction_type_id','total_transaction_price', 'transaction_status_id', 'note',
     ];
 
     public function user(){
@@ -27,7 +28,12 @@ class Transaction extends Model
     public function transaction_type(){
         return $this->belongsTo(Transaction_Type::class);
     }
+    public function transactionStatus()
+    {
+        return $this->belongsTo(TransactionStatus::class, 'status_id');
+    }
     public function products(){
         return $this->belongsToMany(Product::class)->withPivot("quantity", "price", "flawed");
     }
+
 }

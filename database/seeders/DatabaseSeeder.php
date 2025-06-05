@@ -1204,14 +1204,6 @@ class DatabaseSeeder extends Seeder
             "name"=> "Outbound",
         ]);
 
-        TransactionStatus::create([
-            "name"=> "Pending",
-        ]);
-
-        TransactionStatus::create([
-            "name"=> "Completed",
-        ]);
-
         $permissions = [
             'create user',
             'index users',

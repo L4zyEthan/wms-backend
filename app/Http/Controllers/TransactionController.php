@@ -17,7 +17,7 @@ class TransactionController extends Controller
             return $this->Forbidden();
         }
 
-        $transactions = Transaction::with('transaction_type')->with('user')->with('store')->with('products')->get();
+        $transactions = Transaction::with('transaction_type')->with('user')->with('store')->with('products')->with('transactionStatus')->get();
         // ✅ Convert product images to full URLs
     foreach ($transactions as $transaction) {
         foreach ($transaction->products as $product) {
@@ -46,7 +46,7 @@ class TransactionController extends Controller
             "products.*" => "array",
             "products.*.product_id" => "required|exists:products,id",
             "products.*.quantity" => "required|numeric|min:0.01|max:1000000",
-            "products.*.flawed_quantity" => "nullable|numeric|min:0|max:1000000",
+            "products.*.flawed" => "nullable|numeric|min:0|max:1000000",
             "total_transaction_price" => "nullable|numeric|min:0|max:1000000",
             "note" => "nullable|string|max:255",
         ]);
