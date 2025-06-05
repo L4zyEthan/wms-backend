@@ -9,7 +9,6 @@ class ProductOrder extends Model
     protected $fillable = [
         'store_id',
         'transaction_type_id',
-        'total_transaction_price',
         'note',
     ];
 

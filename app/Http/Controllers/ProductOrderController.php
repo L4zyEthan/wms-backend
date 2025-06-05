@@ -101,7 +101,7 @@ class ProductOrderController extends Controller
             "products.*" => "array",
             "products.*.product_id" => "sometimes|exists:products,id",
             "products.*.quantity" => "sometimes|numeric|min:0.01|max:1000000",
-            "note" => "sometimes|string|max:255",
+            "note" => "nullable|string|max:255",
         ]);
 
         if ($validator->fails()) {
@@ -111,10 +111,10 @@ class ProductOrderController extends Controller
         $productOrder->update($validator->validated());
 
         $total = $productOrder->total_transaction_price;
-        if ($request->has('products')) {
+        if (isset($request['products'])) {
             $items = [];
             $total = 0;
-            foreach ($request->products as $product) {
+            foreach ($request['products'] as $product) {
                 $price = Product::find($product['product_id'])->price ?? 0;
                 $items[$product['product_id']] = [
                     'quantity' => $product['quantity'],

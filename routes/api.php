@@ -76,7 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/productOrders', [ProductOrderController::class, 'store']);
     Route::post('/productOrders/checkout{id}', [ProductOrderController::class, 'checkOut']);
     Route::get('/productOrders/{id}', [ProductOrderController::class, 'show']);
-    Route::patch('/productOrders/{id}', [ProductOrderController::class, 'update']);
+    Route::put('/productOrders/{id}', [ProductOrderController::class, 'update']);
     Route::delete('/productOrders/{id}', [ProductOrderController::class, 'destroy']);
 });
 
@@ -94,9 +94,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboard/monthlyReport', [DashBoardController::class, 'getMonthlyReport']);
     Route::get('/dashboard/totalStock', [DashBoardController::class, 'getAllStocks']);
     Route::get('/dashboard/lowStock', [DashBoardController::class, 'getAllLowStock']);
-    Route::get('/dashboard/outOfStock', [DashBoardController::class, 'getAllOutOfStock']);
-    Route::get('/dashboard/numCategories', [DashBoardController::class, 'getNumCategories']);
-    Route::get('/dashboard/numLowStock', [DashBoardController::class, 'getNumLowStock']);
-    Route::get('/dashboard/numOutOfStock', [DashBoardController::class, 'getNumOutOfStock']);
+        Route::get('/dashboard/outOfStock', [DashBoardController::class, 'getAllOutOfStock']);
+        Route::get('/dashboard/numCategories', [DashBoardController::class, 'getNumCategories']);
+        Route::get('/dashboard/numLowStock', [DashBoardController::class, 'getNumLowStock']);
+        Route::get('/dashboard/numOutOfStock', [DashBoardController::class, 'getNumOutOfStock']);
 
 });

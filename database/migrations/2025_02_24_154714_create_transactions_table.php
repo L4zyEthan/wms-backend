@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreign("user_id")->references("id")->on("users");
             $table->foreign("store_id")->references("id")->on("stores__outlets");
             $table->foreign("transaction_type_id")->references("id")->on("transaction__types");
+            $table->foreign("status_id")->references("id")->on("transaction_statuses")->onDelete('cascade');
         });
     }
 

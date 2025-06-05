@@ -15,6 +15,10 @@ class Transaction_Type extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function productOrders(){
+        return $this->hasMany(ProductOrder::class, 'transaction_type_id');
+    }
+
     public function varianceReports(){
         return $this->hasMany(VarianceReport::class, 'transaction_type_id');
     }
