@@ -10,14 +10,28 @@ class StoresOutletsController extends Controller
     /**
      * Display a listing of the resource.
      **/
-    public function index()
+    public function index(Request $request, Stores_Outlets $storesOutlets)
     {
         if(!request()->user()->can('index stores')){
             return $this->Forbidden();
         }
 
-        $storesOutlets = Stores_Outlets::all();
-        return $this->Success($storesOutlets);
+        $validator = validator()->make($request->all(), [
+        'search' => 'nullable|string|max:255',
+    ]);
+
+    if ($validator->fails()) {
+        return $this->BadRequest($validator);
+    }
+
+    $query = Stores_Outlets::query()
+        ->when($request->search, function($q) use ($request) {
+            $q->where('name', 'like', '%'.$request->search.'%');
+        });
+        $filteredStoresOutlets = $query->paginate(30);
+
+        
+        return $this->Success($filteredStoresOutlets, "Stores retrieved successfully.");
     }
 
     /**
@@ -33,7 +47,6 @@ class StoresOutletsController extends Controller
             "name" => "required|string|unique:stores__outlets|min:4|max:64",
             "address" => "required|string|unique:stores__outlets|min:4|max:255",
             "contact_number" => "required|phone:PH|unique:stores__outlets",
-            // "contact_number" => "required|phone:PH|unique:stores__outlets",
         ]);
 
         if($validator->fails()){

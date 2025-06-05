@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -13,28 +11,64 @@ class ProductController extends Controller
      /**
      * Display a listing of the resource by category.
      **/
-    public function index()
-    {
-        if(!request()->user()->can('index products')){
-            return $this->Forbidden();
-        }
 
-        $products = Product::with('category')->paginate(30);
-         // ✅ Convert product images to full URLs
-          foreach ($products as $product) {
-            if ($product->image) {
-            $product->image = asset($product->image);  
-            }
-          }
-            return $this->Success($products);
-        if ($products->isEmpty()) {
-            return $this->NotFound();
+     public function index(Request $request)
+    {
+    if(!request()->user()->can('index products')){
+        return $this->Forbidden();
+    }
+
+    $validator = validator()->make($request->all(), [
+        'startPrice' => 'nullable|numeric|min:0|max:999999999',
+        'endPrice' => 'nullable|numeric|min:0|max:999999999',
+        'sortBy' => 'nullable|string|in:name,price,created_at,updated_at',
+        'sortOrder' => 'nullable|string|in:asc,desc',
+        'search' => 'nullable|string|max:255',
+    ],[
+        'startPrice.numeric' => 'The start price must be a number.',
+        'endPrice.numeric' => 'The end price must be a number.',
+        'sortBy.in' => 'The sort by field must be one of: name, price, stocks, flawed, catergory',
+        'sortOrder.in' => 'The sort order must be either asc or desc.',
+    ]);
+
+    if ($validator->fails()) {
+        return $this->BadRequest($validator);
+    }
+
+    $query = Product::with('category')
+        ->when($request->search, function($q) use ($request) {
+            $q->where(function($subQ) use ($request) {
+                $subQ->where('name', 'like', '%'.$request->search.'%')
+                     ->orWhere('barcode', 'like', '%'.$request->search.'%')
+                     ->orWhere('sku', 'like', '%'.$request->search.'%');
+            });
+        })
+        ->when($request->startPrice, fn($q) => $q->where('price', '>=', $request->startPrice))
+        ->when($request->endPrice, fn($q) => $q->where('price', '<=', $request->endPrice));
+
+    if ($request->sortBy && $request->sortOrder) {
+        if (!in_array($request->sortBy, ["name", "price", "stocks", "flawed", "catergory"])) {
+            return $this->BadRequest(['sortBy' => 'Invalid sort field.']);
+        }
+        $query->orderBy($request->sortBy, $request->sortOrder);
+    } else {
+        $query->orderBy('id');
+    }
+
+    $filteredProducts = $query->paginate(30);
+
+    foreach ($filteredProducts as $product) {
+        if ($product->image) {
+            $product->image = asset($product->image);
         }
     }
 
+    return $this->Success($filteredProducts);
+}
+
     /**
      * Store a newly created resource in storage.
-     */
+    */
     public function store(Request $request)
     {
         if(!request()->user()->can('create product')){

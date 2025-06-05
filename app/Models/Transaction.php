@@ -28,6 +28,6 @@ class Transaction extends Model
         return $this->belongsTo(Transaction_Type::class);
     }
     public function products(){
-        return $this->belongsToMany(Product::class)->withPivot("quantity", "price");
+        return $this->belongsToMany(Product::class)->withPivot("quantity", "price", "flawed");
     }
 }
