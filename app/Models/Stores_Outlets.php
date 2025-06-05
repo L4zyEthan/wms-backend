@@ -19,6 +19,11 @@ class Stores_Outlets extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function productOrders()
+    {
+        return $this->hasMany(ProductOrder::class, 'store_id');
+    }
+
     public function varianceReports()
     {
         return $this->hasMany(VarianceReport::class, 'store_id');
