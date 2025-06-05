@@ -104,7 +104,7 @@ class TransactionController extends Controller
             return $this->Forbidden();
         }
 
-        $transactions = Transaction::find($id);
+        $transactions = Transaction::find($id)->load('transaction_type', 'user', 'store', 'products');
         if(empty($transactions)){
             return $this->NotFound();
         }

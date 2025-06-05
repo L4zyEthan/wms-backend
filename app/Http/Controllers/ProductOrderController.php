@@ -15,10 +15,10 @@ class ProductOrderController extends Controller
             return $this->Forbidden();
         }
 
-        $productOrders = ProductOrder::with('store', 'transactionType')->paginate(10);
+        $productOrders = ProductOrder::with('store', 'transactionType', 'products')->paginate(10);
 
         if ($productOrders->isEmpty()) {
-            return $this->NotFound();
+            return $this->NotFound("No orders found.");
         }
 
         return $this->Success($productOrders);

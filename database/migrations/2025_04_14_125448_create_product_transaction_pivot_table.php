@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->decimal('quantity', 12, 2);
             $table->decimal('price', 12, 2);
+            $table->decimal('flawed', 12,2)->default(0);
             
             $table->primary(['transaction_id', 'product_id']);
             $table->foreign('transaction_id')->references('id')->on('transactions')->onDelete('cascade');
